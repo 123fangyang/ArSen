@@ -3,26 +3,26 @@ cuda
 C:\ProgramData\anaconda3\Lib\site-packages\huggingface_hub\file_download.py:1132: FutureWarning: `resume_download` is deprecated and will be removed in version 1.0.0. Downloads always resume when possible. If you want to force a new download, use `force_download=True`.
   warnings.warn(
 You are using the default legacy behaviour of the <class 'transformers.models.t5.tokenization_t5.T5Tokenizer'>. This is expected, and simply means that the `legacy` (previous) behavior will be used so nothing changes for you. If you want to use the new behaviour, set `legacy=False`. This should only be set if you understand what it means, and thoroughly read the reason why this was added as explained in https://github.com/huggingface/transformers/pull/24565
-***** Best Result Updated at Epoch 1, Val Loss: 1.0748 *****
-Epoch [1/10], Time: 30.00s, train Loss: 1.2420, train Acc: 0.3221, Train F1 Macro: 0.2895, Train F1 Micro: 0.3221, Val Loss: 1.0748, Val Acc: 0.4985, Val F1 Macro: 0.3627, Val F1 Micro: 0.4985
-***** Best Result Updated at Epoch 2, Val Loss: 1.0466 *****
-Epoch [2/10], Time: 30.01s, train Loss: 1.1650, train Acc: 0.3855, Train F1 Macro: 0.3240, Train F1 Micro: 0.3855, Val Loss: 1.0466, Val Acc: 0.5564, Val F1 Macro: 0.4351, Val F1 Micro: 0.5564
-***** Best Result Updated at Epoch 3, Val Loss: 1.0254 *****
-Epoch [3/10], Time: 30.03s, train Loss: 1.1184, train Acc: 0.4307, Train F1 Macro: 0.3505, Train F1 Micro: 0.4307, Val Loss: 1.0254, Val Acc: 0.6712, Val F1 Macro: 0.4964, Val F1 Micro: 0.6712
-***** Best Result Updated at Epoch 4, Val Loss: 0.9971 *****
-Epoch [4/10], Time: 29.63s, train Loss: 1.0792, train Acc: 0.4848, Train F1 Macro: 0.3926, Train F1 Micro: 0.4848, Val Loss: 0.9971, Val Acc: 0.6919, Val F1 Macro: 0.5291, Val F1 Micro: 0.6919
-***** Best Result Updated at Epoch 5, Val Loss: 0.9639 *****
-Epoch [5/10], Time: 29.60s, train Loss: 1.0418, train Acc: 0.5471, Train F1 Macro: 0.4378, Train F1 Micro: 0.5471, Val Loss: 0.9639, Val Acc: 0.6899, Val F1 Macro: 0.5486, Val F1 Micro: 0.6899
-***** Best Result Updated at Epoch 6, Val Loss: 0.9396 *****
-Epoch [6/10], Time: 29.49s, train Loss: 1.0125, train Acc: 0.5785, Train F1 Macro: 0.4572, Train F1 Micro: 0.5785, Val Loss: 0.9396, Val Acc: 0.6958, Val F1 Macro: 0.5535, Val F1 Micro: 0.6958
-***** Best Result Updated at Epoch 7, Val Loss: 0.9135 *****
-Epoch [7/10], Time: 29.59s, train Loss: 0.9879, train Acc: 0.5958, Train F1 Macro: 0.4768, Train F1 Micro: 0.5958, Val Loss: 0.9135, Val Acc: 0.6791, Val F1 Macro: 0.5525, Val F1 Micro: 0.6791
-***** Best Result Updated at Epoch 8, Val Loss: 0.8877 *****
-Epoch [8/10], Time: 29.56s, train Loss: 0.9462, train Acc: 0.6292, Train F1 Macro: 0.5128, Train F1 Micro: 0.6292, Val Loss: 0.8877, Val Acc: 0.6771, Val F1 Macro: 0.5679, Val F1 Micro: 0.6771
-***** Best Result Updated at Epoch 9, Val Loss: 0.8871 *****
-Epoch [9/10], Time: 29.59s, train Loss: 0.9283, train Acc: 0.6336, Train F1 Macro: 0.5218, Train F1 Micro: 0.6336, Val Loss: 0.8871, Val Acc: 0.7036, Val F1 Macro: 0.5868, Val F1 Micro: 0.7036
-***** Best Result Updated at Epoch 10, Val Loss: 0.8536 *****
-Epoch [10/10], Time: 29.49s, train Loss: 0.9127, train Acc: 0.6476, Train F1 Macro: 0.5399, Train F1 Micro: 0.6476, Val Loss: 0.8536, Val Acc: 0.6919, Val F1 Macro: 0.5831, Val F1 Micro: 0.6919
-Test Loss: 0.8401, Test Acc: 0.7341, Test F1 Macro: 0.6023, Test F1 Micro: 0.7341
+***** Best Result Updated at Epoch 1, Val Loss: 1.1019 *****
+Epoch [1/10], Time: 29.71s, train Loss: 1.2789, train Acc: 0.3126, Train F1 Macro: 0.2794, Train F1 Micro: 0.3126, Val Loss: 1.1019, Val Acc: 0.4279, Val F1 Macro: 0.3448, Val F1 Micro: 0.4279
+***** Best Result Updated at Epoch 2, Val Loss: 1.0734 *****
+Epoch [2/10], Time: 29.53s, train Loss: 1.1698, train Acc: 0.3767, Train F1 Macro: 0.3201, Train F1 Micro: 0.3767, Val Loss: 1.0734, Val Acc: 0.5388, Val F1 Macro: 0.4055, Val F1 Micro: 0.5388
+***** Best Result Updated at Epoch 3, Val Loss: 1.0438 *****
+Epoch [3/10], Time: 29.51s, train Loss: 1.1349, train Acc: 0.4124, Train F1 Macro: 0.3391, Train F1 Micro: 0.4124, Val Loss: 1.0438, Val Acc: 0.6261, Val F1 Macro: 0.4616, Val F1 Micro: 0.6261
+***** Best Result Updated at Epoch 4, Val Loss: 1.0019 *****
+Epoch [4/10], Time: 29.47s, train Loss: 1.0802, train Acc: 0.4800, Train F1 Macro: 0.3897, Train F1 Micro: 0.4800, Val Loss: 1.0019, Val Acc: 0.6398, Val F1 Macro: 0.5106, Val F1 Micro: 0.6398
+***** Best Result Updated at Epoch 5, Val Loss: 0.9648 *****
+Epoch [5/10], Time: 29.54s, train Loss: 1.0535, train Acc: 0.5148, Train F1 Macro: 0.4159, Train F1 Micro: 0.5148, Val Loss: 0.9648, Val Acc: 0.6781, Val F1 Macro: 0.5418, Val F1 Micro: 0.6781
+***** Best Result Updated at Epoch 6, Val Loss: 0.9301 *****
+Epoch [6/10], Time: 29.40s, train Loss: 1.0217, train Acc: 0.5595, Train F1 Macro: 0.4479, Train F1 Micro: 0.5595, Val Loss: 0.9301, Val Acc: 0.6830, Val F1 Macro: 0.5391, Val F1 Micro: 0.6830
+***** Best Result Updated at Epoch 7, Val Loss: 0.9093 *****
+Epoch [7/10], Time: 29.73s, train Loss: 0.9856, train Acc: 0.5963, Train F1 Macro: 0.4850, Train F1 Micro: 0.5963, Val Loss: 0.9093, Val Acc: 0.7076, Val F1 Macro: 0.5744, Val F1 Micro: 0.7076
+***** Best Result Updated at Epoch 8, Val Loss: 0.8710 *****
+Epoch [8/10], Time: 29.65s, train Loss: 0.9529, train Acc: 0.6169, Train F1 Macro: 0.5052, Train F1 Micro: 0.6169, Val Loss: 0.8710, Val Acc: 0.6997, Val F1 Macro: 0.5697, Val F1 Micro: 0.6997
+***** Best Result Updated at Epoch 9, Val Loss: 0.8452 *****
+Epoch [9/10], Time: 30.28s, train Loss: 0.9251, train Acc: 0.6325, Train F1 Macro: 0.5296, Train F1 Micro: 0.6325, Val Loss: 0.8452, Val Acc: 0.6968, Val F1 Macro: 0.5804, Val F1 Micro: 0.6968
+***** Best Result Updated at Epoch 10, Val Loss: 0.8128 *****
+Epoch [10/10], Time: 29.75s, train Loss: 0.9027, train Acc: 0.6298, Train F1 Macro: 0.5316, Train F1 Micro: 0.6298, Val Loss: 0.8128, Val Acc: 0.6811, Val F1 Macro: 0.5902, Val F1 Micro: 0.6811
+Test Loss: 0.8383, Test Acc: 0.7017, Test F1 Macro: 0.5747, Test F1 Micro: 0.7017
 C:\ProgramData\anaconda3\Lib\site-packages\seaborn\_oldcore.py:1119: FutureWarning: use_inf_as_na option is deprecated and will be removed in a future version. Convert inf values to NaN before operating instead.
   with pd.option_context('mode.use_inf_as_na', True):
