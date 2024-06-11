@@ -10,7 +10,7 @@ import torch.utils.data as data
 import time
 from sklearn.metrics import f1_score
 from sklearn.utils import class_weight
-from torch.optim.lr_scheduler import StepLR
+import matplotlib.pyplot as plt
 
 # Fixing the randomness of CUDA.
 torch.backends.cudnn.deterministic = True
@@ -20,7 +20,7 @@ DEVICE = torch.device("cuda") if torch.cuda.is_available() else torch.device("cp
 print("PyTorch Version : {}".format(torch.__version__))
 print(DEVICE)
 
-
+model_save = 'Arabic.pt'
 num_epochs = 10
 batch_size = 16  # Reduce batch size
 learning_rate = 1e-6
@@ -115,9 +115,6 @@ criterion = nn.CrossEntropyLoss(weight=class_weights)
 optimizer = optim.Adam(model.parameters(), lr=learning_rate)
 # scheduler = StepLR(optimizer, step_size=3, gamma=0.1)
 
-import matplotlib.pyplot as plt
-import seaborn as sns
-
 # 训练模型
 def train(model, train_loader, optimizer, criterion, num_epochs, val_loader):
     best_val_loss = float('inf')
@@ -150,7 +147,7 @@ def train(model, train_loader, optimizer, criterion, num_epochs, val_loader):
         train_f1_macro = f1_score(all_labels, all_preds, average='macro')
         train_f1_micro = f1_score(all_labels, all_preds, average='micro')
 
-        val_loss, val_acc, val_f1_macro, val_f1_micro, val_confidences = evaluate(model, val_loader, criterion)
+        val_loss, val_acc, val_f1_macro, val_f1_micro = evaluate(model, val_loader, criterion)
 
         if val_loss < best_val_loss:
             best_val_loss = val_loss
@@ -161,6 +158,8 @@ def train(model, train_loader, optimizer, criterion, num_epochs, val_loader):
 
         print(f"Epoch [{epoch+1}/{num_epochs}], Time: {epoch_time:.2f}s, train Loss: {train_loss:.4f}, train Acc: {train_acc:.4f}, Train F1 Macro: {train_f1_macro:.4f}, Train F1 Micro: {train_f1_micro:.4f}, Val Loss: {val_loss:.4f}, Val Acc: {val_acc:.4f}, Val F1 Macro: {val_f1_macro:.4f}, Val F1 Micro: {val_f1_micro:.4f}")
 
+        # scheduler.step()  # 调度学习率
+
 # 在验证集上评估模型
 def evaluate(model, val_loader, criterion):
     model.eval()
@@ -169,7 +168,6 @@ def evaluate(model, val_loader, criterion):
     total = 0
     all_labels = []
     all_preds = []
-    all_confidences = []
     with torch.no_grad():
         for inputs, labels_onehot, labels in val_loader:
             inputs = inputs.to(DEVICE)
@@ -182,28 +180,53 @@ def evaluate(model, val_loader, criterion):
             total += labels.size(0)
             all_labels.extend(labels.cpu().numpy())
             all_preds.extend(predicted.cpu().numpy())
-            confidences = F.softmax(logits, dim=1).max(dim=1)[0]
-            all_confidences.extend(confidences.cpu().numpy())
 
     val_loss = total_loss / len(val_loader)
     val_acc = correct / total
     val_f1_macro = f1_score(all_labels, all_preds, average='macro')
     val_f1_micro = f1_score(all_labels, all_preds, average='micro')
 
-    return val_loss, val_acc, val_f1_macro, val_f1_micro, all_confidences
+    return val_loss, val_acc, val_f1_macro, val_f1_micro
 
 # 训练模型
 train(model, train_loader, optimizer, criterion, num_epochs, val_loader)
 
-# 在测试集上评估模型并获取置信度
-test_loss, test_acc, test_f1_macro, test_f1_micro, test_confidences = evaluate(model, test_loader, criterion)
+# 在测试集上评估模型
+test_loss, test_acc, test_f1_macro, test_f1_micro = evaluate(model, test_loader, criterion)
 print(f"Test Loss: {test_loss:.4f}, Test Acc: {test_acc:.4f}, Test F1 Macro: {test_f1_macro:.4f}, Test F1 Micro: {test_f1_micro:.4f}")
 
-# 绘制置信度分布图
-plt.figure(figsize=(10, 6))
-sns.histplot(test_confidences, kde=True, bins=30)
-plt.title('Prediction Confidence Distribution')
-plt.xlabel('Confidence')
-plt.ylabel('Frequency')
-plt.savefig('prediction_confidence_distribution.pdf', format='pdf')
-plt.show()
+# 获取模型在数据集上的预测置信度
+def get_confidences(model, loader):
+    model.eval()
+    confidences = []
+    all_labels = []
+    all_preds = []
+    with torch.no_grad():
+        for inputs, labels_onehot, labels in loader:
+            inputs = inputs.to(DEVICE)
+            labels = labels.to(DEVICE)
+            logits = model(inputs)
+            probs = F.softmax(logits, dim=1)
+            max_probs, predicted = torch.max(probs, 1)
+            confidences.extend(max_probs.cpu().numpy())
+            all_labels.extend(labels.cpu().numpy())
+            all_preds.extend(predicted.cpu().numpy())
+    return confidences, all_labels, all_preds
+
+# 获取训练集、验证集和测试集上的置信度
+train_confidences, train_labels, train_preds = get_confidences(model, train_loader)
+val_confidences, val_labels, val_preds = get_confidences(model, val_loader)
+test_confidences, test_labels, test_preds = get_confidences(model, test_loader)
+
+# 绘制置信度分布图并保存为PDF文件
+def plot_confidence_histogram(confidences, labels, preds, filename):
+    plt.figure()
+    plt.hist(confidences, bins=20, alpha=0.6)
+    plt.xlabel('Confidence')
+    plt.ylabel('Frequency')
+    plt.savefig(filename, format='pdf')
+    plt.close()
+
+plot_confidence_histogram(train_confidences, train_labels, train_preds, 'train_prediction_confidence_distribution.pdf')
+plot_confidence_histogram(val_confidences, val_labels, val_preds, 'valid_prediction_confidence_distribution.pdf')
+plot_confidence_histogram(test_confidences, test_labels, test_preds, 'test_prediction_confidence_distribution.pdf')
