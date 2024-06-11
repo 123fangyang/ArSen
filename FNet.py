@@ -224,5 +224,7 @@ def test(model, test_loader, model_save):
     test_accuracy = test_accuracy.double() / len(test_loader.dataset)
     test_macro_f1 = f1_score(test_label_all, test_predict_all, average='macro')
     test_micro_f1 = f1_score(test_label_all, test_predict_all, average='micro')
+    print(f'Test Loss: {test_loss:.4f}, Test Acc: {test_accuracy:.4f}, Test F1 Macro: {test_macro_f1:.4f}, Test F1 Micro: {test_micro_f1:.4f}')
 
+test(model, test_loader, model_save)
 
