@@ -1,0 +1,28 @@
+PyTorch Version : 2.3.0
+cuda
+C:\ProgramData\anaconda3\Lib\site-packages\huggingface_hub\file_download.py:1132: FutureWarning: `resume_download` is deprecated and will be removed in version 1.0.0. Downloads always resume when possible. If you want to force a new download, use `force_download=True`.
+  warnings.warn(
+tokenizer_config.json: 100%|████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 455/455 [00:00<00:00, 419kB/s]
+C:\ProgramData\anaconda3\Lib\site-packages\huggingface_hub\file_download.py:157: UserWarning: `huggingface_hub` cache-system uses symlinks by default to efficiently store duplicated files but your machine does not support them in C:\Users\m1822\.cache\huggingface\hub\models--google--fnet-base. Caching files will still work but in a degraded version that might require more space on your disk. This warning can be disabled by setting the `HF_HUB_DISABLE_SYMLINKS_WARNING` environment variable. For more details, see https://huggingface.co/docs/huggingface_hub/how-to-cache#limitations.
+To support symlinks on Windows, you either need to activate Developer Mode or to run Python as an administrator. In order to see activate developer mode, see this article: https://docs.microsoft.com/en-us/windows/apps/get-started/enable-your-device-for-development
+  warnings.warn(message)
+spiece.model: 100%|██████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 708k/708k [00:00<00:00, 2.08MB/s]
+special_tokens_map.json: 100%|█████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 201/201 [00:00<?, ?B/s]
+tokenizer.json: 100%|██████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 1.12M/1.12M [00:00<00:00, 9.09MB/s]
+config.json: 100%|█████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 626/626 [00:00<?, ?B/s]
+pytorch_model.bin: 100%|█████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 334M/334M [00:09<00:00, 36.3MB/s]
+Some weights of FNetForSequenceClassification were not initialized from the model checkpoint at google/fnet-base and are newly initialized: ['classifier.bias', 'classifier.weight']
+You should probably TRAIN this model on a down-stream task to be able to use it for predictions and inference.
+***** Best Result Updated at Epoch 1, Val Loss: 0.7377 *****
+Epoch [1/10], Time: 24.27s, Train Loss: 0.8002, Train Acc: 0.6944, Train F1 Average: 0.5902, Train F1 Macro: 0.3205, Train F1 Micro: 0.6944, Val Loss: 0.7377, Val Acc: 0.6968, Val F1 Macro: 0.3776, Val F1 Micro: 0.6968, Val F1 Average: 0.6212
+***** Best Result Updated at Epoch 2, Val Loss: 0.7119 *****
+Epoch [2/10], Time: 23.97s, Train Loss: 0.7205, Train Acc: 0.7158, Train F1 Average: 0.6559, Train F1 Macro: 0.4351, Train F1 Micro: 0.7158, Val Loss: 0.7119, Val Acc: 0.7164, Val F1 Macro: 0.4330, Val F1 Micro: 0.7164, Val F1 Average: 0.6508
+Epoch [3/10], Time: 23.53s, Train Loss: 0.6623, Train Acc: 0.7314, Train F1 Average: 0.6862, Train F1 Macro: 0.4848, Train F1 Micro: 0.7314, Val Loss: 0.7842, Val Acc: 0.6497, Val F1 Macro: 0.4963, Val F1 Micro: 0.6497, Val F1 Average: 0.6579
+Epoch [4/10], Time: 23.51s, Train Loss: 0.5857, Train Acc: 0.7634, Train F1 Average: 0.7415, Train F1 Macro: 0.5815, Train F1 Micro: 0.7634, Val Loss: 0.7847, Val Acc: 0.6624, Val F1 Macro: 0.5332, Val F1 Micro: 0.6624, Val F1 Average: 0.6760
+Epoch [5/10], Time: 23.49s, Train Loss: 0.4814, Train Acc: 0.8091, Train F1 Average: 0.8007, Train F1 Macro: 0.6760, Train F1 Micro: 0.8091, Val Loss: 0.8250, Val Acc: 0.6673, Val F1 Macro: 0.5362, Val F1 Micro: 0.6673, Val F1 Average: 0.6785
+Epoch [6/10], Time: 23.51s, Train Loss: 0.3685, Train Acc: 0.8528, Train F1 Average: 0.8503, Train F1 Macro: 0.7479, Train F1 Micro: 0.8528, Val Loss: 1.0318, Val Acc: 0.7203, Val F1 Macro: 0.4917, Val F1 Micro: 0.7203, Val F1 Average: 0.6778
+Epoch [7/10], Time: 23.63s, Train Loss: 0.2763, Train Acc: 0.8959, Train F1 Average: 0.8952, Train F1 Macro: 0.8224, Train F1 Micro: 0.8959, Val Loss: 1.0135, Val Acc: 0.6595, Val F1 Macro: 0.5137, Val F1 Micro: 0.6595, Val F1 Average: 0.6648
+Epoch [8/10], Time: 23.66s, Train Loss: 0.2042, Train Acc: 0.9247, Train F1 Average: 0.9246, Train F1 Macro: 0.8706, Train F1 Micro: 0.9247, Val Loss: 1.0848, Val Acc: 0.6359, Val F1 Macro: 0.5080, Val F1 Micro: 0.6359, Val F1 Average: 0.6538
+Epoch [9/10], Time: 23.46s, Train Loss: 0.1579, Train Acc: 0.9464, Train F1 Average: 0.9463, Train F1 Macro: 0.9103, Train F1 Micro: 0.9464, Val Loss: 1.1738, Val Acc: 0.6801, Val F1 Macro: 0.5118, Val F1 Micro: 0.6801, Val F1 Average: 0.6747
+Epoch [10/10], Time: 23.48s, Train Loss: 0.1186, Train Acc: 0.9621, Train F1 Average: 0.9622, Train F1 Macro: 0.9376, Train F1 Micro: 0.9621, Val Loss: 1.2502, Val Acc: 0.6820, Val F1 Macro: 0.5234, Val F1 Micro: 0.6820, Val F1 Average: 0.6802
+Total Training Time: 236.52s

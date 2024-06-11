@@ -1,0 +1,210 @@
+PyTorch Version : 2.3.0
+cuda
+FULL Dataset: (10190, 17)
+TRAIN Dataset: (8152, 17)
+VALIDATION Dataset: (1019, 17)
+TEST Dataset: (1019, 17)
+C:\ProgramData\anaconda3\Lib\site-packages\huggingface_hub\file_download.py:1132: FutureWarning: `resume_download` is deprecated and will be removed in version 1.0.0. Downloads always resume when possible. If you want to force a new download, use `force_download=True`.
+  warnings.warn(
+tokenizer_config.json: 100%|████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 25.0/25.0 [00:00<?, ?B/s]
+C:\ProgramData\anaconda3\Lib\site-packages\huggingface_hub\file_download.py:157: UserWarning: `huggingface_hub` cache-system uses symlinks by default to efficiently store duplicated files but your machine does not support them in C:\Users\m1822\.cache\huggingface\hub\models--roberta-base. Caching files will still work but in a degraded version that might require more space on your disk. This warning can be disabled by setting the `HF_HUB_DISABLE_SYMLINKS_WARNING` environment variable. For more details, see https://huggingface.co/docs/huggingface_hub/how-to-cache#limitations.
+To support symlinks on Windows, you either need to activate Developer Mode or to run Python as an administrator. In order to see activate developer mode, see this article: https://docs.microsoft.com/en-us/windows/apps/get-started/enable-your-device-for-development
+  warnings.warn(message)
+config.json: 100%|█████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 481/481 [00:00<00:00, 482kB/s]
+vocab.json: 100%|███████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 899k/899k [00:00<00:00, 3.15MB/s]
+merges.txt: 100%|███████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 456k/456k [00:00<00:00, 24.9MB/s]
+tokenizer.json: 100%|█████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 1.36M/1.36M [00:00<00:00, 3.90MB/s]
+model.safetensors: 100%|████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 499M/499M [00:12<00:00, 40.3MB/s]
+Some weights of RobertaForSequenceClassification were not initialized from the model checkpoint at roberta-base and are newly initialized: ['classifier.dense.bias', 'classifier.dense.weight', 'classifier.out_proj.bias', 'classifier.out_proj.weight']
+You should probably TRAIN this model on a down-stream task to be able to use it for predictions and inference.
+----------------Epoch 1----------------
+[Epoch 1] [0 Step] Training Loss per 500 steps: 0.676077
+[Epoch 1] [0 Step] Training Accuracy per 500 steps: 0.1250
+[Epoch 1] [500 Step] Training Loss per 500 steps: 0.567980
+[Epoch 1] [500 Step] Training Accuracy per 500 steps: 0.6130
+[Epoch 1] Training Loss Epoch: 0.566996
+[Epoch 1] Training Accuracy Epoch: 0.6145
+[Epoch 1] Training F1 (Weighted) Epoch: 0.5563
+[Epoch 1] Training F1 (Macro) Epoch: 0.3081
+[Epoch 1] Training F1 (Micro) Epoch: 0.6145
+
+***** Best Result Updated at Epoch 1, Val Loss: 0.4973 *****
+
+[Epoch 1] Validation Loss: 0.497304
+[Epoch 1] Validation Accuracy: 0.6889
+[Epoch 1] Validation F1 (Weighted) Epoch: 0.5620
+[Epoch 1] Validation F1 (Macro) Epoch: 0.2719
+[Epoch 1] Validation F1 (Micro) Epoch: 0.6889
+[Epoch 1] Running time: 50.42s
+
+----------------Epoch 2----------------
+[Epoch 2] [0 Step] Training Loss per 500 steps: 0.578739
+[Epoch 2] [0 Step] Training Accuracy per 500 steps: 0.6250
+[Epoch 2] [500 Step] Training Loss per 500 steps: 0.498917
+[Epoch 2] [500 Step] Training Accuracy per 500 steps: 0.6954
+[Epoch 2] Training Loss Epoch: 0.498989
+[Epoch 2] Training Accuracy Epoch: 0.6954
+[Epoch 2] Training F1 (Weighted) Epoch: 0.5705
+[Epoch 2] Training F1 (Macro) Epoch: 0.2734
+[Epoch 2] Training F1 (Micro) Epoch: 0.6954
+
+***** Best Result Updated at Epoch 2, Val Loss: 0.4957 *****
+
+[Epoch 2] Validation Loss: 0.495670
+[Epoch 2] Validation Accuracy: 0.6889
+[Epoch 2] Validation F1 (Weighted) Epoch: 0.5620
+[Epoch 2] Validation F1 (Macro) Epoch: 0.2719
+[Epoch 2] Validation F1 (Micro) Epoch: 0.6889
+[Epoch 2] Running time: 50.40s
+
+----------------Epoch 3----------------
+[Epoch 3] [0 Step] Training Loss per 500 steps: 0.640598
+[Epoch 3] [0 Step] Training Accuracy per 500 steps: 0.5000
+[Epoch 3] [500 Step] Training Loss per 500 steps: 0.490771
+[Epoch 3] [500 Step] Training Accuracy per 500 steps: 0.6949
+[Epoch 3] Training Loss Epoch: 0.490149
+[Epoch 3] Training Accuracy Epoch: 0.6954
+[Epoch 3] Training F1 (Weighted) Epoch: 0.5705
+[Epoch 3] Training F1 (Macro) Epoch: 0.2734
+[Epoch 3] Training F1 (Micro) Epoch: 0.6954
+
+***** Best Result Updated at Epoch 3, Val Loss: 0.4954 *****
+
+[Epoch 3] Validation Loss: 0.495386
+[Epoch 3] Validation Accuracy: 0.6889
+[Epoch 3] Validation F1 (Weighted) Epoch: 0.5620
+[Epoch 3] Validation F1 (Macro) Epoch: 0.2719
+[Epoch 3] Validation F1 (Micro) Epoch: 0.6889
+[Epoch 3] Running time: 50.08s
+
+----------------Epoch 4----------------
+[Epoch 4] [0 Step] Training Loss per 500 steps: 0.548577
+[Epoch 4] [0 Step] Training Accuracy per 500 steps: 0.6250
+[Epoch 4] [500 Step] Training Loss per 500 steps: 0.489584
+[Epoch 4] [500 Step] Training Accuracy per 500 steps: 0.6955
+[Epoch 4] Training Loss Epoch: 0.489597
+[Epoch 4] Training Accuracy Epoch: 0.6954
+[Epoch 4] Training F1 (Weighted) Epoch: 0.5705
+[Epoch 4] Training F1 (Macro) Epoch: 0.2734
+[Epoch 4] Training F1 (Micro) Epoch: 0.6954
+
+***** Best Result Updated at Epoch 4, Val Loss: 0.4946 *****
+
+[Epoch 4] Validation Loss: 0.494649
+[Epoch 4] Validation Accuracy: 0.6889
+[Epoch 4] Validation F1 (Weighted) Epoch: 0.5620
+[Epoch 4] Validation F1 (Macro) Epoch: 0.2719
+[Epoch 4] Validation F1 (Micro) Epoch: 0.6889
+[Epoch 4] Running time: 50.58s
+
+----------------Epoch 5----------------
+[Epoch 5] [0 Step] Training Loss per 500 steps: 0.547927
+[Epoch 5] [0 Step] Training Accuracy per 500 steps: 0.6250
+[Epoch 5] [500 Step] Training Loss per 500 steps: 0.489006
+[Epoch 5] [500 Step] Training Accuracy per 500 steps: 0.6961
+[Epoch 5] Training Loss Epoch: 0.489552
+[Epoch 5] Training Accuracy Epoch: 0.6954
+[Epoch 5] Training F1 (Weighted) Epoch: 0.5705
+[Epoch 5] Training F1 (Macro) Epoch: 0.2734
+[Epoch 5] Training F1 (Micro) Epoch: 0.6954
+
+***** Best Result Updated at Epoch 5, Val Loss: 0.4946 *****
+
+[Epoch 5] Validation Loss: 0.494611
+[Epoch 5] Validation Accuracy: 0.6889
+[Epoch 5] Validation F1 (Weighted) Epoch: 0.5620
+[Epoch 5] Validation F1 (Macro) Epoch: 0.2719
+[Epoch 5] Validation F1 (Micro) Epoch: 0.6889
+[Epoch 5] Running time: 50.21s
+
+----------------Epoch 6----------------
+[Epoch 6] [0 Step] Training Loss per 500 steps: 0.442882
+[Epoch 6] [0 Step] Training Accuracy per 500 steps: 0.7500
+[Epoch 6] [500 Step] Training Loss per 500 steps: 0.489685
+[Epoch 6] [500 Step] Training Accuracy per 500 steps: 0.6954
+[Epoch 6] Training Loss Epoch: 0.489902
+[Epoch 6] Training Accuracy Epoch: 0.6954
+[Epoch 6] Training F1 (Weighted) Epoch: 0.5705
+[Epoch 6] Training F1 (Macro) Epoch: 0.2734
+[Epoch 6] Training F1 (Micro) Epoch: 0.6954
+
+[Epoch 6] Validation Loss: 0.494690
+[Epoch 6] Validation Accuracy: 0.6889
+[Epoch 6] Validation F1 (Weighted) Epoch: 0.5620
+[Epoch 6] Validation F1 (Macro) Epoch: 0.2719
+[Epoch 6] Validation F1 (Micro) Epoch: 0.6889
+[Epoch 6] Running time: 50.20s
+
+----------------Epoch 7----------------
+[Epoch 7] [0 Step] Training Loss per 500 steps: 0.442631
+[Epoch 7] [0 Step] Training Accuracy per 500 steps: 0.7500
+[Epoch 7] [500 Step] Training Loss per 500 steps: 0.489450
+[Epoch 7] [500 Step] Training Accuracy per 500 steps: 0.6954
+[Epoch 7] Training Loss Epoch: 0.489473
+[Epoch 7] Training Accuracy Epoch: 0.6954
+[Epoch 7] Training F1 (Weighted) Epoch: 0.5705
+[Epoch 7] Training F1 (Macro) Epoch: 0.2734
+[Epoch 7] Training F1 (Micro) Epoch: 0.6954
+
+[Epoch 7] Validation Loss: 0.496403
+[Epoch 7] Validation Accuracy: 0.6889
+[Epoch 7] Validation F1 (Weighted) Epoch: 0.5620
+[Epoch 7] Validation F1 (Macro) Epoch: 0.2719
+[Epoch 7] Validation F1 (Micro) Epoch: 0.6889
+[Epoch 7] Running time: 49.93s
+
+----------------Epoch 8----------------
+[Epoch 8] [0 Step] Training Loss per 500 steps: 0.383716
+[Epoch 8] [0 Step] Training Accuracy per 500 steps: 0.8125
+[Epoch 8] [500 Step] Training Loss per 500 steps: 0.489168
+[Epoch 8] [500 Step] Training Accuracy per 500 steps: 0.6960
+[Epoch 8] Training Loss Epoch: 0.489603
+[Epoch 8] Training Accuracy Epoch: 0.6954
+[Epoch 8] Training F1 (Weighted) Epoch: 0.5705
+[Epoch 8] Training F1 (Macro) Epoch: 0.2734
+[Epoch 8] Training F1 (Micro) Epoch: 0.6954
+
+***** Best Result Updated at Epoch 8, Val Loss: 0.4946 *****
+
+[Epoch 8] Validation Loss: 0.494584
+[Epoch 8] Validation Accuracy: 0.6889
+[Epoch 8] Validation F1 (Weighted) Epoch: 0.5620
+[Epoch 8] Validation F1 (Macro) Epoch: 0.2719
+[Epoch 8] Validation F1 (Micro) Epoch: 0.6889
+[Epoch 8] Running time: 49.96s
+
+----------------Epoch 9----------------
+[Epoch 9] [0 Step] Training Loss per 500 steps: 0.548857
+[Epoch 9] [0 Step] Training Accuracy per 500 steps: 0.6250
+[Epoch 9] [500 Step] Training Loss per 500 steps: 0.489509
+[Epoch 9] [500 Step] Training Accuracy per 500 steps: 0.6955
+[Epoch 9] Training Loss Epoch: 0.489734
+[Epoch 9] Training Accuracy Epoch: 0.6954
+[Epoch 9] Training F1 (Weighted) Epoch: 0.5705
+[Epoch 9] Training F1 (Macro) Epoch: 0.2734
+[Epoch 9] Training F1 (Micro) Epoch: 0.6954
+
+[Epoch 9] Validation Loss: 0.494622
+[Epoch 9] Validation Accuracy: 0.6889
+[Epoch 9] Validation F1 (Weighted) Epoch: 0.5620
+[Epoch 9] Validation F1 (Macro) Epoch: 0.2719
+[Epoch 9] Validation F1 (Micro) Epoch: 0.6889
+[Epoch 9] Running time: 49.84s
+
+----------------Epoch 10----------------
+[Epoch 10] [0 Step] Training Loss per 500 steps: 0.762671
+[Epoch 10] [0 Step] Training Accuracy per 500 steps: 0.3750
+[Epoch 10] [500 Step] Training Loss per 500 steps: 0.489370
+[Epoch 10] [500 Step] Training Accuracy per 500 steps: 0.6956
+[Epoch 10] Training Loss Epoch: 0.489280
+[Epoch 10] Training Accuracy Epoch: 0.6954
+[Epoch 10] Training F1 (Weighted) Epoch: 0.5705
+[Epoch 10] Training F1 (Macro) Epoch: 0.2734
+[Epoch 10] Training F1 (Micro) Epoch: 0.6954
+
+[Epoch 10] Validation Loss: 0.495463
+[Epoch 10] Validation Accuracy: 0.6889
+[Epoch 10] Validation F1 (Weighted) Epoch: 0.5620
+[Epoch 10] Validation F1 (Macro) Epoch: 0.2719
+[Epoch 10] Validation F1 (Micro) Epoch: 0.6889
+[Epoch 10] Running time: 49.90s
