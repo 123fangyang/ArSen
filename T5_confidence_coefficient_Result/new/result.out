@@ -1,0 +1,26 @@
+PyTorch Version : 2.3.0
+cuda
+C:\ProgramData\anaconda3\Lib\site-packages\huggingface_hub\file_download.py:1132: FutureWarning: `resume_download` is deprecated and will be removed in version 1.0.0. Downloads always resume when possible. If you want to force a new download, use `force_download=True`.
+  warnings.warn(
+You are using the default legacy behaviour of the <class 'transformers.models.t5.tokenization_t5.T5Tokenizer'>. This is expected, and simply means that the `legacy` (previous) behavior will be used so nothing changes for you. If you want to use the new behaviour, set `legacy=False`. This should only be set if you understand what it means, and thoroughly read the reason why this was added as explained in https://github.com/huggingface/transformers/pull/24565
+***** Best Result Updated at Epoch 1, Val Loss: 1.0898 *****
+Epoch [1/10], Time: 29.56s, train Loss: 1.2865, train Acc: 0.3097, Train F1 Macro: 0.2744, Train F1 Micro: 0.3097, Val Loss: 1.0898, Val Acc: 0.3670, Val F1 Macro: 0.3116, Val F1 Micro: 0.3670
+***** Best Result Updated at Epoch 2, Val Loss: 1.0653 *****
+Epoch [2/10], Time: 29.28s, train Loss: 1.1928, train Acc: 0.3540, Train F1 Macro: 0.3067, Train F1 Micro: 0.3540, Val Loss: 1.0653, Val Acc: 0.4858, Val F1 Macro: 0.3885, Val F1 Micro: 0.4858
+***** Best Result Updated at Epoch 3, Val Loss: 1.0440 *****
+Epoch [3/10], Time: 29.74s, train Loss: 1.1308, train Acc: 0.4179, Train F1 Macro: 0.3508, Train F1 Micro: 0.4179, Val Loss: 1.0440, Val Acc: 0.5388, Val F1 Macro: 0.4183, Val F1 Micro: 0.5388
+***** Best Result Updated at Epoch 4, Val Loss: 1.0195 *****
+Epoch [4/10], Time: 29.45s, train Loss: 1.1106, train Acc: 0.4409, Train F1 Macro: 0.3562, Train F1 Micro: 0.4409, Val Loss: 1.0195, Val Acc: 0.6114, Val F1 Macro: 0.4836, Val F1 Micro: 0.6114
+***** Best Result Updated at Epoch 5, Val Loss: 0.9945 *****
+Epoch [5/10], Time: 29.74s, train Loss: 1.0738, train Acc: 0.4907, Train F1 Macro: 0.3941, Train F1 Micro: 0.4907, Val Loss: 0.9945, Val Acc: 0.6192, Val F1 Macro: 0.5027, Val F1 Micro: 0.6192
+***** Best Result Updated at Epoch 6, Val Loss: 0.9420 *****
+Epoch [6/10], Time: 29.59s, train Loss: 1.0429, train Acc: 0.5331, Train F1 Macro: 0.4333, Train F1 Micro: 0.5331, Val Loss: 0.9420, Val Acc: 0.6477, Val F1 Macro: 0.5426, Val F1 Micro: 0.6477
+***** Best Result Updated at Epoch 7, Val Loss: 0.9049 *****
+Epoch [7/10], Time: 29.49s, train Loss: 1.0091, train Acc: 0.5629, Train F1 Macro: 0.4628, Train F1 Micro: 0.5629, Val Loss: 0.9049, Val Acc: 0.6310, Val F1 Macro: 0.5447, Val F1 Micro: 0.6310
+***** Best Result Updated at Epoch 8, Val Loss: 0.8789 *****
+Epoch [8/10], Time: 29.55s, train Loss: 0.9761, train Acc: 0.5878, Train F1 Macro: 0.4852, Train F1 Micro: 0.5878, Val Loss: 0.8789, Val Acc: 0.6712, Val F1 Macro: 0.5791, Val F1 Micro: 0.6712
+***** Best Result Updated at Epoch 9, Val Loss: 0.8430 *****
+Epoch [9/10], Time: 29.45s, train Loss: 0.9382, train Acc: 0.6154, Train F1 Macro: 0.5149, Train F1 Micro: 0.6154, Val Loss: 0.8430, Val Acc: 0.6624, Val F1 Macro: 0.5846, Val F1 Micro: 0.6624
+***** Best Result Updated at Epoch 10, Val Loss: 0.8179 *****
+Epoch [10/10], Time: 29.32s, train Loss: 0.9144, train Acc: 0.6228, Train F1 Macro: 0.5316, Train F1 Micro: 0.6228, Val Loss: 0.8179, Val Acc: 0.6605, Val F1 Macro: 0.5886, Val F1 Micro: 0.6605
+Test Loss: 0.8446, Test Acc: 0.6516, Test F1 Macro: 0.5527, Test F1 Micro: 0.6516
