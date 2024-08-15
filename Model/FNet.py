@@ -15,9 +15,7 @@ print("PyTorch Version : {}".format(torch.__version__))
 print(DEVICE)
 
 # Read data
-col = ['tweet id', 'author id', 'created_at', 'like_count', 'quote_count', 'reply_count', 'retweet_count', 'tweet',
-       'user_verified', 'followers_count', 'following_count', 'tweet_count', 'listed_count', 'name', 'user_created_at',
-       'description', 'label']
+col=['like_count','quote_count','reply_count','retweet_count','tweet','user_verified','followers_count','following_count','tweet_count','listed_count','label']
 
 train_data = pd.read_csv('train.csv', names=col, skiprows=1)
 test_data = pd.read_csv('test.csv', names=col, skiprows=1)
@@ -187,7 +185,7 @@ def train(num_epochs, model, train_loader, val_loader, optimizer, criterion, mod
 
 
 # Model save path
-model_save = 'fnet_model.pt'
+model_save = 'fnet.pt'
 
 # Number of epochs
 num_epochs = 10

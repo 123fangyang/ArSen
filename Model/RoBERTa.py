@@ -19,7 +19,7 @@ DEVICE = torch.device("cuda") if torch.cuda.is_available() else torch.device("cp
 print("PyTorch Version : {}".format(torch.__version__))
 print(DEVICE)
 
-col=['tweet id','author id','created_at','like_count','quote_count','reply_count','retweet_count','tweet','user_verified','followers_count','following_count','tweet_count','listed_count','name','user_created_at','description','label']
+col=['like_count','quote_count','reply_count','retweet_count','tweet','user_verified','followers_count','following_count','tweet_count','listed_count','label']
 label_map = {0:'negative',1:'neutral',2:'positive'}
 label_convert = {'negative':0,'neutral':1,'positive':2}
 

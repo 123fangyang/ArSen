@@ -20,16 +20,16 @@ DEVICE = torch.device("cuda") if torch.cuda.is_available() else torch.device("cp
 print("PyTorch Version : {}".format(torch.__version__))
 print(DEVICE)
 
-model_save = 'Arabic.pt'
-model_name = 'Arabic'
+model_save = 'CB+FZ.pt'
+model_name = 'CB+FZ'
 num_epochs = 20
 batch_size = 32
 learning_rate = 1e-3
 num_classes = 3
 padding_idx = 0
-metadata_each_dim = 10   #textual_context的每个feature大小为10
+metadata_each_dim = 10
 
-col=['tweet id','author id','created_at','like_count','quote_count','reply_count','retweet_count','tweet','user_verified','followers_count','following_count','tweet_count','listed_count','name','user_created_at','description','label']
+col=['like_count','quote_count','reply_count','retweet_count','tweet','user_verified','followers_count','following_count','tweet_count','listed_count','label']
 label_map = {0:'negative',1:'neutral',2:'positive'}
 label_convert = {'negative':0,'neutral':1,'positive':2}
 
@@ -49,7 +49,7 @@ val_data.fillna('unknow', inplace=True)
 
 
 def textProcess(input_text , max_length = -1):
-    tokenizer = BertTokenizer.from_pretrained('bert-base-uncased')   # 把单词变成数字
+    tokenizer = BertTokenizer.from_pretrained('bert-base-uncased')
     if max_length == -1:
         tokens = tokenizer(input_text, truncation=True, padding=True)
     else:
@@ -83,7 +83,6 @@ class ArabicDataset(data.Dataset):
         metadata_number = self.metadata_number[idx]
         return label_onehot, label, metadata_number
 # Define the data loaders for training and validation
-
 train_label = torch.nn.functional.one_hot(torch.tensor(train_data['label'].replace(label_convert)), num_classes=3).type(torch.float64)
 train_dataset = ArabicDataset(train_data, train_label, torch.tensor(train_data['label'].replace(label_convert)),
                               train_data['like_count'].tolist(), train_data['quote_count'].tolist(),
@@ -96,7 +95,7 @@ train_loader = data.DataLoader(train_dataset, batch_size=batch_size, shuffle=Tru
 val_label = torch.nn.functional.one_hot(torch.tensor(val_data['label'].replace(label_convert)), num_classes=3).type(torch.float64)
 
 val_dataset = ArabicDataset(val_data, val_label, torch.tensor(val_data['label'].replace(label_convert)),
-                          val_data['like_count'].tolist(), val_data['quote_count'].tolist(), # 计数
+                              val_data['like_count'].tolist(), val_data['quote_count'].tolist(),
                               val_data['reply_count'].tolist(), val_data['retweet_count'].tolist(),
                               val_data['followers_count'].tolist(), val_data['following_count'].tolist(),
                               val_data['tweet_count'].tolist(), val_data['listed_count'].tolist(),
@@ -106,12 +105,34 @@ val_loader = data.DataLoader(val_dataset, batch_size=batch_size)
 test_label = torch.nn.functional.one_hot(torch.tensor(test_data['label'].replace(label_convert)), num_classes=3).type(torch.float64)
 
 test_dataset = ArabicDataset(test_data, test_label, torch.tensor(test_data['label'].replace(label_convert)),
-                          test_data['like_count'].tolist(), test_data['quote_count'].tolist(), # 计数
+                          test_data['like_count'].tolist(), test_data['quote_count'].tolist(),
                               test_data['reply_count'].tolist(), test_data['retweet_count'].tolist(),
                               test_data['followers_count'].tolist(), test_data['following_count'].tolist(),
                               test_data['tweet_count'].tolist(), test_data['listed_count'].tolist(),
                               test_data['user_verified'].tolist())
 test_loader = data.DataLoader(test_dataset, batch_size=batch_size)
+
+class FuzzyLayer(nn.Module):
+    def __init__(self, input_dim, membership_num):
+        super(FuzzyLayer, self).__init__()
+
+        # input_dim: feature number of the dataset
+        # membership_num: number of membership function, also known as the class number
+
+        self.input_dim = input_dim
+        self.membership_num = membership_num
+        self.membership_miu = nn.Parameter(torch.Tensor(self.membership_num, self.input_dim).to(DEVICE), requires_grad=True)
+        self.membership_sigma = nn.Parameter(torch.Tensor(self.membership_num, self.input_dim).to(DEVICE), requires_grad=True)
+
+        nn.init.xavier_uniform_(self.membership_miu)
+        nn.init.ones_(self.membership_sigma)
+    def forward(self, input_seq):
+        batch_size = input_seq.size()[0]
+        input_seq_exp = input_seq.unsqueeze(1).expand(batch_size, self.membership_num, self.input_dim)
+        membership_miu_exp = self.membership_miu.unsqueeze(0).expand(batch_size, self.membership_num, self.input_dim)
+        membership_sigma_exp = self.membership_sigma.unsqueeze(0).expand(batch_size, self.membership_num, self.input_dim)
+        fuzzy_membership = torch.mean(torch.exp((-1 / 2) * ((input_seq_exp - membership_miu_exp) / membership_sigma_exp) ** 2), dim=-1)
+        return fuzzy_membership
 
 class CNNBiLSTM(nn.Module):
     def __init__(self, input_dim, embedding_dim, hidden_dim, output_dim, n_layers, bidirectional, dropout):
@@ -156,15 +177,17 @@ class ArabicModel(nn.Module):
         super().__init__()
 
         self.cnn_bilstm = CNNBiLSTM(input_dim_metadata, embedding_dim, hidden_dim, output_dim, n_layers, bidirectional, dropout)
-        self.fuse = nn.Linear(output_dim * 1, output_dim)
+        self.fuzzy = FuzzyLayer(output_dim, output_dim)
+        self.fuse = nn.Linear(output_dim * 2, output_dim)
 
     def forward(self, metadata_number):
         #text = [batch size, sent len]
         #metadata = [batch size, metadata dim]
 
         metadata_output_number = self.cnn_bilstm(metadata_number)
+        metadata_output_fuzzy = self.fuzzy(metadata_output_number)
 
-        fused_output = self.fuse(torch.cat((metadata_output_number,), dim=1))
+        fused_output = self.fuse(torch.cat((metadata_output_number,metadata_output_fuzzy), dim=1))
 
         return fused_output
 
@@ -173,12 +196,12 @@ embedding_dim = 128
 n_filters = 128
 filter_sizes = [3,4,5]
 output_dim = 3
-dropout = 0.4
+dropout = 0.5
 padding_idx = 0
-input_dim = 2 * metadata_each_dim  #textual的输入维度
-input_dim_metadata = 9        #9个数值型的feature
+input_dim = 2 * metadata_each_dim
+input_dim_metadata = 9
 hidden_dim = 64
-n_layers = 2
+n_layers = 3
 bidirectional = True
 
 model = ArabicModel(vocab_size, embedding_dim, n_filters, filter_sizes, output_dim, dropout, padding_idx, input_dim, input_dim_metadata, hidden_dim, n_layers, bidirectional).to(DEVICE)
@@ -189,8 +212,7 @@ optimizer = torch.optim.Adam(model.parameters(), lr=learning_rate)
 # weights = torch.tensor([0.6, 0.1, 0.3])
 # weights = weights.to(DEVICE)
 # criterion = nn.CrossEntropyLoss(weight=weights)
-criterion = nn.BCEWithLogitsLoss()#创建了一个二分类交叉熵损失函数。模型的输出是经过Sigmoid函数处理的logits，
-# 因此使用BCEWithLogitsLoss损失函数来计算模型输出与真实标签之间的损失。
+criterion = nn.BCEWithLogitsLoss()
 
 # import pdb;
 # pdb.set_trace()

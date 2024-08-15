@@ -5,7 +5,7 @@ import torch
 import torch.nn as nn
 import torch.nn.functional as F
 import torch.utils.data as data
-from sklearn.metrics import f1_score
+from sklearn.metrics import f1_score,mean_squared_error
 from torch.utils.data import DataLoader
 from transformers import BertTokenizer, BertForSequenceClassification
 
@@ -20,16 +20,16 @@ DEVICE = torch.device("cuda") if torch.cuda.is_available() else torch.device("cp
 print("PyTorch Version : {}".format(torch.__version__))
 print(DEVICE)
 
-model_save = 'Arabic.pt'
-model_name = 'Arabic'
-num_epochs = 10
+model_save = 'Meta-data.pt'
+model_name = 'Meta-data'
+num_epochs = 20
 batch_size = 32
 learning_rate = 1e-3
 num_classes = 3
 padding_idx = 0
-metadata_each_dim = 10   #textual_context的每个feature大小为10
+metadata_each_dim = 10
 
-col=['tweet id','author id','created_at','like_count','quote_count','reply_count','retweet_count','tweet','user_verified','followers_count','following_count','tweet_count','listed_count','name','user_created_at','description','label']
+col=['like_count','quote_count','reply_count','retweet_count','tweet','user_verified','followers_count','following_count','tweet_count','listed_count','label']
 label_map = {0:'negative',1:'neutral',2:'positive'}
 label_convert = {'negative':0,'neutral':1,'positive':2}
 
@@ -49,7 +49,7 @@ val_data.fillna('unknow', inplace=True)
 
 
 def textProcess(input_text , max_length = -1):
-    tokenizer = BertTokenizer.from_pretrained('bert-base-uncased')   # 把单词变成数字
+    tokenizer = BertTokenizer.from_pretrained('bert-base-uncased')
     if max_length == -1:
         tokens = tokenizer(input_text, truncation=True, padding=True)
     else:
@@ -58,81 +58,85 @@ def textProcess(input_text , max_length = -1):
 
 
 class ArabicDataset(data.Dataset):
-    # data_df存放数据框DataFrame(类似表格的一种数据结构)
-    def __init__(self, data_df, tweet, label_onehot, label ,like_count, quote_count, reply_count, retweet_count,
+    def __init__(self, data_df, tweet, label_onehot, label, like_count, quote_count, reply_count, retweet_count,
                   followers_count, following_count, tweet_count, listed_count,  user_verified):
         self.data_df = data_df
         self.tweet = tweet
         self.label_onehot = label_onehot
         self.label = label
+        self.metadata_number = torch.cat((torch.tensor(followers_count, dtype=torch.float).unsqueeze(1),
+                                          torch.tensor(following_count, dtype=torch.float).unsqueeze(1),
+                                          torch.tensor(tweet_count, dtype=torch.float).unsqueeze(1),
+                                          torch.tensor(listed_count, dtype=torch.float).unsqueeze(1),
+                                          torch.tensor(user_verified, dtype=torch.float).unsqueeze(1)), dim=-1)
 
-        # torch.cat((tensor1,tensor2,...),dim=-1) 按照最后一个维度（dim=-1）拼接这些tensor张量
-        # unsqueeze(1)表示在当前张量的第一个维度上新增一个维度(3,4)-->(3,1,4)，用于调整张量的形状，以便满足运算的要求
-        self.metadata_number = torch.cat((torch.tensor(like_count, dtype=torch.float).unsqueeze(1),
-                                        torch.tensor(quote_count, dtype=torch.float).unsqueeze(1),
-                                        torch.tensor(reply_count, dtype=torch.float).unsqueeze(1),
-                                        torch.tensor(retweet_count, dtype=torch.float).unsqueeze(1),
-                                        torch.tensor(followers_count, dtype=torch.float).unsqueeze(1),
-                                        torch.tensor(following_count, dtype=torch.float).unsqueeze(1),
-                                        torch.tensor(tweet_count, dtype=torch.float).unsqueeze(1),
-                                        torch.tensor(listed_count, dtype=torch.float).unsqueeze(1),
-                                        torch.tensor(user_verified, dtype=torch.float).unsqueeze(1)),dim=-1)
-
-
-    # __len__方法是Python内置的方法，这里在自定义类中重写这个方法来实现自定义对象的长度计算
     def __len__(self):
         return len(self.data_df)
 
-# python内置方法__getitem__方法，如果一个类定义了 __getitem__ 方法，
-# 那么该类的实例就可以像序列一样进行索引和切片操作。这个方法允许您通过索引来访问对象中的元素
-# idx为传入的参数
-# 与上文class ArabicDataset(data.Dataset):的__init__方法中的参数一一对应
     def __getitem__(self, idx):
         tweet = self.tweet[idx]
         label_onehot = self.label_onehot[idx]
         label = self.label[idx]
         metadata_number = self.metadata_number[idx]
-        return tweet, label_onehot, label, metadata_number
-# Define the data loaders for training and validation
-# 这些代码将训练数据集中的各个列经过处理后转换为PyTorch张量，以便用于训练模型
+        return tweet, label_onehot, label,metadata_number
+
 train_text = torch.tensor(textProcess(train_data['tweet'].tolist())['input_ids'])
-# 首先，从训练数据集中获取标签列，并使用 label_convert 字典将文本标签转换为对应的整数标签。
-# torch.tensor(...)：将上一步得到的整数标签转换为PyTorch张量
-# 使用PyTorch的one_hot函数将整数标签转换为独热编码表示，其中num_classes=6表示共有6个类别。
 train_label = torch.nn.functional.one_hot(torch.tensor(train_data['label'].replace(label_convert)), num_classes=3).type(torch.float64)
 
-# 通过传入多个参数，初始化了一个包含训练数据的数据集 train_dataset
 train_dataset = ArabicDataset(train_data, train_text, train_label, torch.tensor(train_data['label'].replace(label_convert)),
                               train_data['like_count'].tolist(), train_data['quote_count'].tolist(),
                               train_data['reply_count'].tolist(), train_data['retweet_count'].tolist(),
                               train_data['followers_count'].tolist(),train_data['following_count'].tolist(),
                               train_data['tweet_count'].tolist(),train_data['listed_count'].tolist(),
                               train_data['user_verified'].tolist())
-train_loader = data.DataLoader(train_dataset, batch_size=batch_size, shuffle=True)# 新建了一个数据加载器，shuffle=True：打包batch_size前将数据打乱
+train_loader = data.DataLoader(train_dataset, batch_size=batch_size, shuffle=True)
 
-# 将验证集的列转换成pytorch张量
 val_text = torch.tensor(textProcess(val_data['tweet'].tolist())['input_ids'])
 val_label = torch.nn.functional.one_hot(torch.tensor(val_data['label'].replace(label_convert)), num_classes=3).type(torch.float64)
 
 val_dataset = ArabicDataset(val_data, val_text, val_label, torch.tensor(val_data['label'].replace(label_convert)),
-                          val_data['like_count'].tolist(), val_data['quote_count'].tolist(), # 计数
-                              val_data['reply_count'].tolist(), val_data['retweet_count'].tolist(),
-                              val_data['followers_count'].tolist(), val_data['following_count'].tolist(),
-                              val_data['tweet_count'].tolist(), val_data['listed_count'].tolist(),
-                              val_data['user_verified'].tolist())
+                            val_data['like_count'].tolist(),  val_data['quote_count'].tolist(),
+                            val_data['reply_count'].tolist(), val_data['retweet_count'].tolist(),
+                            val_data['followers_count'].tolist(), val_data['following_count'].tolist(),
+                            val_data['tweet_count'].tolist(), val_data['listed_count'].tolist(),
+                            val_data['user_verified'].tolist())
 val_loader = data.DataLoader(val_dataset, batch_size=batch_size)
 
-# 测试集，同上
 test_text = torch.tensor(textProcess(test_data['tweet'].tolist())['input_ids'])
 test_label = torch.nn.functional.one_hot(torch.tensor(test_data['label'].replace(label_convert)), num_classes=3).type(torch.float64)
 
 test_dataset = ArabicDataset(test_data, test_text, test_label, torch.tensor(test_data['label'].replace(label_convert)),
-                          test_data['like_count'].tolist(), test_data['quote_count'].tolist(), # 计数
+                          test_data['like_count'].tolist(), test_data['quote_count'].tolist(),
                               test_data['reply_count'].tolist(), test_data['retweet_count'].tolist(),
                               test_data['followers_count'].tolist(), test_data['following_count'].tolist(),
                               test_data['tweet_count'].tolist(), test_data['listed_count'].tolist(),
                               test_data['user_verified'].tolist())
 test_loader = data.DataLoader(test_dataset, batch_size=batch_size)
+
+class FuzzyLayer(nn.Module):
+    def __init__(self, input_dim, membership_num):
+        super(FuzzyLayer, self).__init__()
+
+        # input_dim: feature number of the dataset
+        # membership_num: number of membership function, also known as the class number
+
+        self.input_dim = input_dim
+        self.membership_num = membership_num
+
+        self.membership_miu = nn.Parameter(torch.Tensor(self.membership_num, self.input_dim).to(DEVICE), requires_grad=True)
+        self.membership_sigma = nn.Parameter(torch.Tensor(self.membership_num, self.input_dim).to(DEVICE), requires_grad=True)
+
+        nn.init.xavier_uniform_(self.membership_miu)
+        nn.init.ones_(self.membership_sigma)
+
+    def forward(self, input_seq):
+        batch_size = input_seq.size()[0]
+        input_seq_exp = input_seq.unsqueeze(1).expand(batch_size, self.membership_num, self.input_dim)
+        membership_miu_exp = self.membership_miu.unsqueeze(0).expand(batch_size, self.membership_num, self.input_dim)
+        membership_sigma_exp = self.membership_sigma.unsqueeze(0).expand(batch_size, self.membership_num, self.input_dim)
+
+        fuzzy_membership = torch.mean(torch.exp((-1 / 2) * ((input_seq_exp - membership_miu_exp) / membership_sigma_exp) ** 2), dim=-1)
+        return fuzzy_membership
 
 class TextCNN(nn.Module):
     def __init__(self, vocab_size, embedding_dim, n_filters, filter_sizes, output_dim, dropout, pad_idx):
@@ -147,6 +151,11 @@ class TextCNN(nn.Module):
                        ])
         self.fc = nn.Linear(len(filter_sizes) * n_filters, output_dim)
         self.dropout = nn.Dropout(dropout)
+
+        # nn.init.xavier_uniform_(self.embedding.weight)
+        # nn.init.xavier_uniform_(self.fc.weight)
+        # nn.init.zeros_(self.fc.bias)
+
     def forward(self, text):
         #text = [batch size, sent len]=(32,263)
         embedded = self.embedding(text)
@@ -180,6 +189,17 @@ class CNNBiLSTM(nn.Module):
                   dropout=dropout)
         self.fc = nn.Linear(hidden_dim * 2, output_dim)     #(64*2=128,3)
         self.dropout = nn.Dropout(dropout)
+
+        nn.init.xavier_uniform_(self.embedding.weight)
+        nn.init.zeros_(self.embedding.bias)
+
+        nn.init.xavier_uniform_(self.conv.weight)
+        nn.init.zeros_(self.conv.bias)
+
+        nn.init.xavier_uniform_(self.fc.weight)
+        nn.init.zeros_(self.fc.bias)
+
+
     def forward(self, metadata):
         #metadata = [batch size, metadata dim] = [32,128]
 
@@ -211,81 +231,107 @@ class ArabicModel(nn.Module):
 
         self.textcnn = TextCNN(vocab_size, embedding_dim, n_filters, filter_sizes, output_dim, dropout, padding_idx)
         self.cnn_bilstm = CNNBiLSTM(input_dim_metadata, embedding_dim, hidden_dim, output_dim, n_layers, bidirectional, dropout)
+        self.fuzzy = FuzzyLayer(output_dim, output_dim)
         self.fuse = nn.Linear(output_dim * 2, output_dim)
+        # self.fuse = nn.Linear(output_dim * 3, output_dim)
 
     def forward(self, text, metadata_number):
         #text = [batch size, sent len]
         #metadata = [batch size, metadata dim]
 
-        text_output = self.textcnn(text)
+        # text_output = self.textcnn(text)
 
         metadata_output_number = self.cnn_bilstm(metadata_number)
+        metadata_output_number_fuzzy = self.fuzzy(metadata_output_number)
 
-        fused_output = self.fuse(torch.cat((text_output, metadata_output_number), dim=1))
+        # metadata_output_fuzzy = self.fuzzy(metadata_output_number)
+
+        fused_output = self.fuse(torch.cat((metadata_output_number, metadata_output_number_fuzzy), dim=1))
 
         return fused_output
 
 vocab_size = 30522
 embedding_dim = 128
-n_filters = 128  #特征图数量（卷积核通道数）
+# embedding_dim = 64
+n_filters = 128
 filter_sizes = [3,4,5]
 output_dim = 3
 dropout = 0.5
 padding_idx = 0
-input_dim = 2 * metadata_each_dim  #textual的输入维度
-input_dim_metadata = 9        #9个数值型的feature
+input_dim = 2 * metadata_each_dim
+# input_dim =1
+input_dim_metadata = 5
 hidden_dim = 64
+# hidden_dim = 32
 n_layers = 1
 bidirectional = True
-#  ArabicModel的实例化（传入的参数）
+
 model = ArabicModel(vocab_size, embedding_dim, n_filters, filter_sizes, output_dim, dropout, padding_idx, input_dim, input_dim_metadata, hidden_dim, n_layers, bidirectional).to(DEVICE)
 
 
 # Define the optimizer and loss function
 optimizer = torch.optim.Adam(model.parameters(), lr=learning_rate)
-# weights = torch.tensor([0.6, 0.1, 0.3])
+# weights = torch.tensor([0.4, 0.2, 0.4])
 # weights = weights.to(DEVICE)
 # criterion = nn.CrossEntropyLoss(weight=weights)
-criterion = nn.BCEWithLogitsLoss()#创建了一个二分类交叉熵损失函数。模型的输出是经过Sigmoid函数处理的logits，
-# 因此使用BCEWithLogitsLoss损失函数来计算模型输出与真实标签之间的损失。
-
-# import pdb;
-# pdb.set_trace()
+criterion = nn.BCEWithLogitsLoss()
 
 # Record the training process
-Train_acc = []#准确率
+Train_acc = []
 Train_loss = []
 Train_macro_f1 = []
 Train_micro_f1 = []
+Train_mse = []
+Train_rmse = []
 
 Val_acc = []
 Val_loss = []
 Val_macro_f1 = []
 Val_micro_f1 = []
+Val_mse = []
+Val_rmse = []
+
+Test_acc = []
+Test_loss = []
+Test_macro_f1 = []
+Test_micro_f1 = []
+Test_mse = []
+Test_rmse = []
 
 def train(num_epochs, model, train_loader, val_loader, optimizer, criterion, model_save):
     epoch_trained = 0
     train_label_all = []
+    train_label_onehot_all = []
     train_predict_all = []
+    train_predict_onehot_all = []
+
     val_label_all = []
+    val_label_onehot_all = []
     val_predict_all = []
+    val_predict_onehot_all = []
     best_valid_loss = float('inf')
+
+    test_label_all = []
+    test_label_onehot_all = []
+    test_predict_all = []
+    test_predict_onehot_all = []
 
     start_time = time.time()
     for epoch in range(num_epochs):
         epoch_trained += 1
         epoch_start_time = time.time()
         # Training
-        model.train() #进入训练模式
+        model.train()
         train_loss = 0.0
         train_accuracy = 0.0
+
         for tweet, label_onehot, label, metadata_number in train_loader:
             tweet = tweet.to(DEVICE)
             label_onehot = label_onehot.to(DEVICE)
             label = label.to(DEVICE)
             metadata_number = metadata_number.to(DEVICE)
 
-            optimizer.zero_grad()#清除之前的梯度，以便进行下一次的梯度计算
+            optimizer.zero_grad()
             outputs = model(tweet, metadata_number)
             loss = criterion(outputs,label_onehot)
             loss.backward()
@@ -295,19 +341,25 @@ def train(num_epochs, model, train_loader, val_loader, optimizer, criterion, mod
             _, train_predicted = torch.max(outputs, 1)
             train_accuracy += sum(train_predicted == label)
             train_predict_all += train_predicted.tolist()
+            train_predict_onehot_all += outputs.tolist()
             train_label_all += label.tolist()
-
+            train_label_onehot_all += label_onehot.tolist()
 
         train_loss /= len(train_loader)
         train_accuracy /= len(train_loader.dataset)
         train_macro_f1 = f1_score(train_label_all, train_predict_all, average='macro')
         train_micro_f1 = f1_score(train_label_all, train_predict_all, average='micro')
+        train_mse = mean_squared_error(train_label_all, train_predict_all)
+        train_rmse = np.sqrt(train_mse)
 
         Train_acc.append(train_accuracy.tolist())
         Train_loss.append(train_loss)
         Train_macro_f1.append(train_macro_f1)
         Train_micro_f1.append(train_micro_f1)
-# Validation
+        Train_mse.append(train_mse)
+        Train_rmse.append(train_rmse)
+
+        # Validation
         model.eval()
         val_loss = 0.0
         val_accuracy = 0.0
@@ -323,58 +375,91 @@ def train(num_epochs, model, train_loader, val_loader, optimizer, criterion, mod
                 _, val_predicted = torch.max(val_outputs, 1)
                 val_accuracy += sum(val_predicted == label)
                 val_predict_all += val_predicted.tolist()
+                val_predict_onehot_all += val_outputs.tolist()
                 val_label_all += label.tolist()
-
+                val_label_onehot_all += label_onehot.tolist()
 
         val_loss /= len(val_loader)
         val_accuracy /= len(val_loader.dataset)
         val_macro_f1 = f1_score(val_label_all, val_predict_all, average='macro')
         val_micro_f1 = f1_score(val_label_all, val_predict_all, average='micro')
+        val_mse = mean_squared_error(val_label_all, val_predict_all)
+        val_rmse = np.sqrt(val_mse)
 
         Val_acc.append(val_accuracy.tolist())
         Val_loss.append(val_loss)
         Val_macro_f1.append(val_macro_f1)
         Val_micro_f1.append(val_micro_f1)
-
-        val_losses = []
-        val_accuracies = []
-        val_macro_f1s = []
-        val_micro_f1s = []
-
-        val_losses.append(val_loss)
-        val_accuracies.append(val_accuracy)
-        val_macro_f1s.append(val_macro_f1)
-        val_micro_f1s.append(val_micro_f1)
+        Val_mse.append(val_mse)
+        Val_rmse.append(val_rmse)
 
         if val_loss < best_valid_loss:
             best_valid_loss = val_loss
-            torch.save(model.state_dict(), model_save)#model.state_dict()只保存模型的保存模型参数、超参数以及优化器（torch.optim）的状态信息
+            torch.save(model.state_dict(), model_save)
             print(f'***** Best Result Updated at Epoch {epoch_trained}, Val Loss: {val_loss:.4f} *****')
+
+        # Testing
+        model.eval()
+        test_loss = 0.0
+        test_accuracy = 0.0
+        with torch.no_grad():
+            for tweet, label_onehot, label, metadata_number in test_loader:
+                tweet = tweet.to(DEVICE)
+                label_onehot = label_onehot.to(DEVICE)
+                label = label.to(DEVICE)
+                metadata_number = metadata_number.to(DEVICE)
+
+                test_outputs = model(tweet, metadata_number)
+                test_loss += criterion(test_outputs, label_onehot).item()
+                _, test_predicted = torch.max(test_outputs, 1)
+                test_accuracy += sum(test_predicted == label)
+                test_predict_all += test_predicted.tolist()
+                test_predict_onehot_all += test_outputs.tolist()
+                test_label_all += label.tolist()
+                test_label_onehot_all += label_onehot.tolist()
+
+        test_loss /= len(test_loader)
+        test_accuracy /= len(test_loader.dataset)
+        test_macro_f1 = f1_score(test_label_all, test_predict_all, average='macro')
+        test_micro_f1 = f1_score(test_label_all, test_predict_all, average='micro')
+        test_mse = mean_squared_error(test_label_all, test_predict_all)
+        test_rmse = np.sqrt(test_mse)
+
+        Test_acc.append(test_accuracy.tolist())
+        Test_loss.append(test_loss)
+        Test_macro_f1.append(test_macro_f1)
+        Test_micro_f1.append(test_micro_f1)
+        Test_mse.append(test_mse)
+        Test_rmse.append(test_rmse)
+
         # Print the losses and accuracy
         epoch_end_time = time.time()
         epoch_time = epoch_end_time - epoch_start_time
 
-        print(f"Epoch [{epoch+1}/{num_epochs}], Time: {epoch_time:.2f}s, train Loss: {train_loss:.4f}, train Acc: {train_accuracy:.4f},Train F1 Macro: {train_macro_f1:.4f}, Train F1 Micro: {train_micro_f1:.4f}, Val Loss: {val_loss:.4f}, Val Acc: {val_accuracy:.4f}, Val F1 Macro: {val_macro_f1:.4f}, Val F1 Micro: {val_micro_f1:.4f}")
+        print(f"Epoch [{epoch + 1}/{num_epochs}], Time: {epoch_time:.2f}s, \nTrain Loss: {train_loss:.4f}, Train Acc: {train_accuracy:.4f}, Train F1 Macro: {train_macro_f1:.4f}, Train F1 Micro: {train_micro_f1:.4f}, Train RMSE: {train_rmse:.4f}, \nVal Loss: {val_loss:.4f}, Val Acc: {val_accuracy:.4f}, Val F1 Macro: {val_macro_f1:.4f}, Val F1 Micro: {val_micro_f1:.4f}, Val RMSE: {val_rmse:.4f}, \nTest Loss: {test_loss:.4f}, Test Acc: {test_accuracy:.4f}, Test F1 Macro: {test_macro_f1:.4f}, Test F1 Micro: {test_micro_f1:.4f}, Test RMSE: {test_rmse:.4f}\n")
+
 
     end_time = time.time()
     training_time = end_time - start_time
-    # print(f'Total Training Time: {training_time:.2f}s')
-
+    print(f'Total Training Time: {training_time:.2f}s')
 
 train(num_epochs, model, train_loader, val_loader, optimizer, criterion, model_save)
 
-# Evaluate the model on new data（用新数据评估模型）
+
+# Evaluate the model on new data
 def test(model, test_loader, model_save):
     model.load_state_dict(torch.load(model_save))
-    model.eval() #（eval表示进入评估模式）评估模式下，模型不会计算梯度或更新参数，它只是用于进行推断和预测
+    model.eval()
 
     test_label_all = []
+    test_label_onehot_all = []
     test_predict_all = []
+    test_predict_onehot_all = []
 
     test_loss = 0.0
     test_accuracy = 0.0
-    with torch.no_grad():#上下文管理器，表示在接下来的代码中不需要计算梯度
-        for tweet, label_onehot, label,  metadata_number in test_loader:
+    with torch.no_grad():
+        for tweet, label_onehot, label, metadata_number in test_loader:
             tweet = tweet.to(DEVICE)
             label_onehot = label_onehot.to(DEVICE)
             label = label.to(DEVICE)
@@ -386,13 +471,17 @@ def test(model, test_loader, model_save):
 
             test_accuracy += sum(test_predicted == label)
             test_predict_all += test_predicted.tolist()
+            test_predict_onehot_all += test_outputs.tolist()
             test_label_all += label.tolist()
+            test_label_onehot_all += label_onehot.tolist()
 
-    test_loss /= len(test_loader)
-    test_accuracy /= len(test_loader.dataset)
-    test_macro_f1 = f1_score(test_label_all, test_predict_all, average='macro')
-    test_micro_f1 = f1_score(test_label_all, test_predict_all, average='micro')
+        test_loss /= len(test_loader)
+        test_accuracy /= len(test_loader.dataset)
+        test_macro_f1 = f1_score(test_label_all, test_predict_all, average='macro')
+        test_micro_f1 = f1_score(test_label_all, test_predict_all, average='micro')
+        test_mse = mean_squared_error(test_label_all, test_predict_all)
+        test_rmse = np.sqrt(test_mse)
 
-    print(f'Test Loss: {test_loss:.4f}, Test Acc: {test_accuracy:.4f}, Test F1 Macro: {test_macro_f1:.4f}, Test F1 Micro: {test_micro_f1:.4f}')
+        print(f'\nTest Loss: {test_loss:.4f}, Test Acc: {test_accuracy:.4f}, Test F1 Macro: {test_macro_f1:.4f}, Test F1 Micro: {test_micro_f1:.4f}')
 
-test(model, test_loader, model_save)
+    test(model, test_loader, model_save)
