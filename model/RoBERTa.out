@@ -1,0 +1,259 @@
+PyTorch Version : 2.3.0
+cuda
+FULL Dataset: (10190, 17)
+TRAIN Dataset: (8152, 17)
+VALIDATION Dataset: (1019, 17)
+TEST Dataset: (1019, 17)
+C:\ProgramData\anaconda3\Lib\site-packages\huggingface_hub\file_download.py:1132: FutureWarning: `resume_download` is deprecated and will be removed in version 1.0.0. Downloads always resume when possible. If you want to force a new download, use `force_download=True`.
+  warnings.warn(
+Some weights of RobertaForSequenceClassification were not initialized from the model checkpoint at roberta-base and are newly initialized: ['classifier.dense.bias', 'classifier.dense.weight', 'classifier.out_proj.bias', 'classifier.out_proj.weight']
+You should probably TRAIN this model on a down-stream task to be able to use it for predictions and inference.
+----------------Epoch 1----------------
+[Epoch 1] [0 Step] Training Loss per 500 steps: 0.691230
+[Epoch 1] [0 Step] Training Accuracy per 500 steps: 0.0625
+[Epoch 1] [500 Step] Training Loss per 500 steps: 0.548960
+[Epoch 1] [500 Step] Training Accuracy per 500 steps: 0.6500
+[Epoch 1] Training Loss Epoch: 0.548254
+[Epoch 1] Training Accuracy Epoch: 0.6508
+[Epoch 1] Training F1 (Weighted) Epoch: 0.5674
+[Epoch 1] Training F1 (Macro) Epoch: 0.3021
+[Epoch 1] Training F1 (Micro) Epoch: 0.6508
+
+***** Best Result Updated at Epoch 1, Val Loss: 0.4996 *****
+
+[Epoch 1] Validation Loss: 0.499573
+[Epoch 1] Validation Accuracy: 0.6889
+[Epoch 1] Validation F1 (Weighted) Epoch: 0.5620
+[Epoch 1] Validation F1 (Macro) Epoch: 0.2719
+[Epoch 1] Validation F1 (Micro) Epoch: 0.6889
+[Epoch 1] Running time: 50.91s
+
+[Epoch 1] Test Loss: 0.502606
+[Epoch 1] Test Accuracy: 0.6850
+[Epoch 1] Test F1 (Weighted) Epoch: 0.5569
+[Epoch 1] Test F1 (Macro) Epoch: 0.2710
+[Epoch 1] Test F1 (Micro) Epoch: 0.6850
+
+----------------Epoch 2----------------
+[Epoch 2] [0 Step] Training Loss per 500 steps: 0.397024
+[Epoch 2] [0 Step] Training Accuracy per 500 steps: 0.8125
+[Epoch 2] [500 Step] Training Loss per 500 steps: 0.505304
+[Epoch 2] [500 Step] Training Accuracy per 500 steps: 0.6959
+[Epoch 2] Training Loss Epoch: 0.505391
+[Epoch 2] Training Accuracy Epoch: 0.6954
+[Epoch 2] Training F1 (Weighted) Epoch: 0.5705
+[Epoch 2] Training F1 (Macro) Epoch: 0.2734
+[Epoch 2] Training F1 (Micro) Epoch: 0.6954
+
+***** Best Result Updated at Epoch 2, Val Loss: 0.4956 *****
+
+[Epoch 2] Validation Loss: 0.495625
+[Epoch 2] Validation Accuracy: 0.6889
+[Epoch 2] Validation F1 (Weighted) Epoch: 0.5620
+[Epoch 2] Validation F1 (Macro) Epoch: 0.2719
+[Epoch 2] Validation F1 (Micro) Epoch: 0.6889
+[Epoch 2] Running time: 50.26s
+
+[Epoch 2] Test Loss: 0.498795
+[Epoch 2] Test Accuracy: 0.6850
+[Epoch 2] Test F1 (Weighted) Epoch: 0.5569
+[Epoch 2] Test F1 (Macro) Epoch: 0.2710
+[Epoch 2] Test F1 (Micro) Epoch: 0.6850
+
+----------------Epoch 3----------------
+[Epoch 3] [0 Step] Training Loss per 500 steps: 0.462509
+[Epoch 3] [0 Step] Training Accuracy per 500 steps: 0.7500
+[Epoch 3] [500 Step] Training Loss per 500 steps: 0.490922
+[Epoch 3] [500 Step] Training Accuracy per 500 steps: 0.6955
+[Epoch 3] Training Loss Epoch: 0.490803
+[Epoch 3] Training Accuracy Epoch: 0.6954
+[Epoch 3] Training F1 (Weighted) Epoch: 0.5705
+[Epoch 3] Training F1 (Macro) Epoch: 0.2734
+[Epoch 3] Training F1 (Micro) Epoch: 0.6954
+
+***** Best Result Updated at Epoch 3, Val Loss: 0.4955 *****
+
+[Epoch 3] Validation Loss: 0.495494
+[Epoch 3] Validation Accuracy: 0.6889
+[Epoch 3] Validation F1 (Weighted) Epoch: 0.5620
+[Epoch 3] Validation F1 (Macro) Epoch: 0.2719
+[Epoch 3] Validation F1 (Micro) Epoch: 0.6889
+[Epoch 3] Running time: 50.46s
+
+[Epoch 3] Test Loss: 0.498149
+[Epoch 3] Test Accuracy: 0.6850
+[Epoch 3] Test F1 (Weighted) Epoch: 0.5569
+[Epoch 3] Test F1 (Macro) Epoch: 0.2710
+[Epoch 3] Test F1 (Micro) Epoch: 0.6850
+
+----------------Epoch 4----------------
+[Epoch 4] [0 Step] Training Loss per 500 steps: 0.444770
+[Epoch 4] [0 Step] Training Accuracy per 500 steps: 0.7500
+[Epoch 4] [500 Step] Training Loss per 500 steps: 0.489773
+[Epoch 4] [500 Step] Training Accuracy per 500 steps: 0.6952
+[Epoch 4] Training Loss Epoch: 0.489509
+[Epoch 4] Training Accuracy Epoch: 0.6954
+[Epoch 4] Training F1 (Weighted) Epoch: 0.5705
+[Epoch 4] Training F1 (Macro) Epoch: 0.2734
+[Epoch 4] Training F1 (Micro) Epoch: 0.6954
+
+***** Best Result Updated at Epoch 4, Val Loss: 0.4947 *****
+
+[Epoch 4] Validation Loss: 0.494749
+[Epoch 4] Validation Accuracy: 0.6889
+[Epoch 4] Validation F1 (Weighted) Epoch: 0.5620
+[Epoch 4] Validation F1 (Macro) Epoch: 0.2719
+[Epoch 4] Validation F1 (Micro) Epoch: 0.6889
+[Epoch 4] Running time: 50.40s
+
+[Epoch 4] Test Loss: 0.497084
+[Epoch 4] Test Accuracy: 0.6850
+[Epoch 4] Test F1 (Weighted) Epoch: 0.5569
+[Epoch 4] Test F1 (Macro) Epoch: 0.2710
+[Epoch 4] Test F1 (Micro) Epoch: 0.6850
+
+----------------Epoch 5----------------
+[Epoch 5] [0 Step] Training Loss per 500 steps: 0.594594
+[Epoch 5] [0 Step] Training Accuracy per 500 steps: 0.5625
+[Epoch 5] [500 Step] Training Loss per 500 steps: 0.489930
+[Epoch 5] [500 Step] Training Accuracy per 500 steps: 0.6950
+[Epoch 5] Training Loss Epoch: 0.489731
+[Epoch 5] Training Accuracy Epoch: 0.6954
+[Epoch 5] Training F1 (Weighted) Epoch: 0.5705
+[Epoch 5] Training F1 (Macro) Epoch: 0.2734
+[Epoch 5] Training F1 (Micro) Epoch: 0.6954
+
+***** Best Result Updated at Epoch 5, Val Loss: 0.4946 *****
+
+[Epoch 5] Validation Loss: 0.494645
+[Epoch 5] Validation Accuracy: 0.6889
+[Epoch 5] Validation F1 (Weighted) Epoch: 0.5620
+[Epoch 5] Validation F1 (Macro) Epoch: 0.2719
+[Epoch 5] Validation F1 (Micro) Epoch: 0.6889
+[Epoch 5] Running time: 49.98s
+
+[Epoch 5] Test Loss: 0.498451
+[Epoch 5] Test Accuracy: 0.6850
+[Epoch 5] Test F1 (Weighted) Epoch: 0.5569
+[Epoch 5] Test F1 (Macro) Epoch: 0.2710
+[Epoch 5] Test F1 (Micro) Epoch: 0.6850
+
+----------------Epoch 6----------------
+[Epoch 6] [0 Step] Training Loss per 500 steps: 0.443560
+[Epoch 6] [0 Step] Training Accuracy per 500 steps: 0.7500
+[Epoch 6] [500 Step] Training Loss per 500 steps: 0.490000
+[Epoch 6] [500 Step] Training Accuracy per 500 steps: 0.6949
+[Epoch 6] Training Loss Epoch: 0.489620
+[Epoch 6] Training Accuracy Epoch: 0.6954
+[Epoch 6] Training F1 (Weighted) Epoch: 0.5705
+[Epoch 6] Training F1 (Macro) Epoch: 0.2734
+[Epoch 6] Training F1 (Micro) Epoch: 0.6954
+
+[Epoch 6] Validation Loss: 0.495361
+[Epoch 6] Validation Accuracy: 0.6889
+[Epoch 6] Validation F1 (Weighted) Epoch: 0.5620
+[Epoch 6] Validation F1 (Macro) Epoch: 0.2719
+[Epoch 6] Validation F1 (Micro) Epoch: 0.6889
+[Epoch 6] Running time: 49.63s
+
+[Epoch 6] Test Loss: 0.496979
+[Epoch 6] Test Accuracy: 0.6850
+[Epoch 6] Test F1 (Weighted) Epoch: 0.5569
+[Epoch 6] Test F1 (Macro) Epoch: 0.2710
+[Epoch 6] Test F1 (Micro) Epoch: 0.6850
+
+----------------Epoch 7----------------
+[Epoch 7] [0 Step] Training Loss per 500 steps: 0.446577
+[Epoch 7] [0 Step] Training Accuracy per 500 steps: 0.7500
+[Epoch 7] [500 Step] Training Loss per 500 steps: 0.488700
+[Epoch 7] [500 Step] Training Accuracy per 500 steps: 0.6965
+[Epoch 7] Training Loss Epoch: 0.489633
+[Epoch 7] Training Accuracy Epoch: 0.6954
+[Epoch 7] Training F1 (Weighted) Epoch: 0.5705
+[Epoch 7] Training F1 (Macro) Epoch: 0.2734
+[Epoch 7] Training F1 (Micro) Epoch: 0.6954
+
+[Epoch 7] Validation Loss: 0.494852
+[Epoch 7] Validation Accuracy: 0.6889
+[Epoch 7] Validation F1 (Weighted) Epoch: 0.5620
+[Epoch 7] Validation F1 (Macro) Epoch: 0.2719
+[Epoch 7] Validation F1 (Micro) Epoch: 0.6889
+[Epoch 7] Running time: 49.94s
+
+[Epoch 7] Test Loss: 0.496764
+[Epoch 7] Test Accuracy: 0.6850
+[Epoch 7] Test F1 (Weighted) Epoch: 0.5569
+[Epoch 7] Test F1 (Macro) Epoch: 0.2710
+[Epoch 7] Test F1 (Micro) Epoch: 0.6850
+
+----------------Epoch 8----------------
+[Epoch 8] [0 Step] Training Loss per 500 steps: 0.594295
+[Epoch 8] [0 Step] Training Accuracy per 500 steps: 0.5625
+[Epoch 8] [500 Step] Training Loss per 500 steps: 0.488849
+[Epoch 8] [500 Step] Training Accuracy per 500 steps: 0.6962
+[Epoch 8] Training Loss Epoch: 0.489802
+[Epoch 8] Training Accuracy Epoch: 0.6954
+[Epoch 8] Training F1 (Weighted) Epoch: 0.5705
+[Epoch 8] Training F1 (Macro) Epoch: 0.2734
+[Epoch 8] Training F1 (Micro) Epoch: 0.6954
+
+[Epoch 8] Validation Loss: 0.495377
+[Epoch 8] Validation Accuracy: 0.6889
+[Epoch 8] Validation F1 (Weighted) Epoch: 0.5620
+[Epoch 8] Validation F1 (Macro) Epoch: 0.2719
+[Epoch 8] Validation F1 (Micro) Epoch: 0.6889
+[Epoch 8] Running time: 49.73s
+
+[Epoch 8] Test Loss: 0.499635
+[Epoch 8] Test Accuracy: 0.6850
+[Epoch 8] Test F1 (Weighted) Epoch: 0.5569
+[Epoch 8] Test F1 (Macro) Epoch: 0.2710
+[Epoch 8] Test F1 (Micro) Epoch: 0.6850
+
+----------------Epoch 9----------------
+[Epoch 9] [0 Step] Training Loss per 500 steps: 0.389980
+[Epoch 9] [0 Step] Training Accuracy per 500 steps: 0.8125
+[Epoch 9] [500 Step] Training Loss per 500 steps: 0.489685
+[Epoch 9] [500 Step] Training Accuracy per 500 steps: 0.6952
+[Epoch 9] Training Loss Epoch: 0.489291
+[Epoch 9] Training Accuracy Epoch: 0.6954
+[Epoch 9] Training F1 (Weighted) Epoch: 0.5705
+[Epoch 9] Training F1 (Macro) Epoch: 0.2734
+[Epoch 9] Training F1 (Micro) Epoch: 0.6954
+
+[Epoch 9] Validation Loss: 0.495363
+[Epoch 9] Validation Accuracy: 0.6889
+[Epoch 9] Validation F1 (Weighted) Epoch: 0.5620
+[Epoch 9] Validation F1 (Macro) Epoch: 0.2719
+[Epoch 9] Validation F1 (Micro) Epoch: 0.6889
+[Epoch 9] Running time: 49.96s
+
+[Epoch 9] Test Loss: 0.498161
+[Epoch 9] Test Accuracy: 0.6850
+[Epoch 9] Test F1 (Weighted) Epoch: 0.5569
+[Epoch 9] Test F1 (Macro) Epoch: 0.2710
+[Epoch 9] Test F1 (Micro) Epoch: 0.6850
+
+----------------Epoch 10----------------
+[Epoch 10] [0 Step] Training Loss per 500 steps: 0.545643
+[Epoch 10] [0 Step] Training Accuracy per 500 steps: 0.6250
+[Epoch 10] [500 Step] Training Loss per 500 steps: 0.488584
+[Epoch 10] [500 Step] Training Accuracy per 500 steps: 0.6966
+[Epoch 10] Training Loss Epoch: 0.489539
+[Epoch 10] Training Accuracy Epoch: 0.6954
+[Epoch 10] Training F1 (Weighted) Epoch: 0.5705
+[Epoch 10] Training F1 (Macro) Epoch: 0.2734
+[Epoch 10] Training F1 (Micro) Epoch: 0.6954
+
+[Epoch 10] Validation Loss: 0.495509
+[Epoch 10] Validation Accuracy: 0.6889
+[Epoch 10] Validation F1 (Weighted) Epoch: 0.5620
+[Epoch 10] Validation F1 (Macro) Epoch: 0.2719
+[Epoch 10] Validation F1 (Micro) Epoch: 0.6889
+[Epoch 10] Running time: 50.02s
+
+[Epoch 10] Test Loss: 0.499455
+[Epoch 10] Test Accuracy: 0.6850
+[Epoch 10] Test F1 (Weighted) Epoch: 0.5569
+[Epoch 10] Test F1 (Macro) Epoch: 0.2710
+[Epoch 10] Test F1 (Micro) Epoch: 0.6850

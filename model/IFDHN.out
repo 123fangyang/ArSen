@@ -1,0 +1,15 @@
+***** Best Result Updated at Epoch 1, Val Loss: 0.4098 *****
+Epoch [1/10], Time: 0.44s, train Loss: 0.4611, train Acc: 0.6988, Train F1 Macro: 0.3287, Train F1 Micro: 0.6988, Val Loss: 0.4098, Val Acc: 0.7223, Val F1 Macro: 0.4270, Val F1 Micro: 0.7223
+***** Best Result Updated at Epoch 2, Val Loss: 0.3934 *****
+Epoch [2/10], Time: 0.43s, train Loss: 0.4114, train Acc: 0.7264, Train F1 Macro: 0.4162, Train F1 Micro: 0.7126, Val Loss: 0.3934, Val Acc: 0.7409, Val F1 Macro: 0.4815, Val F1 Micro: 0.7316
+***** Best Result Updated at Epoch 3, Val Loss: 0.3918 *****
+Epoch [3/10], Time: 0.45s, train Loss: 0.3948, train Acc: 0.7352, Train F1 Macro: 0.4525, Train F1 Micro: 0.7202, Val Loss: 0.3918, Val Acc: 0.7360, Val F1 Macro: 0.5025, Val F1 Micro: 0.7331
+***** Best Result Updated at Epoch 4, Val Loss: 0.3864 *****
+Epoch [4/10], Time: 0.42s, train Loss: 0.3757, train Acc: 0.7549, Train F1 Macro: 0.4827, Train F1 Micro: 0.7288, Val Loss: 0.3864, Val Acc: 0.7478, Val F1 Macro: 0.5113, Val F1 Micro: 0.7368
+Epoch [5/10], Time: 0.47s, train Loss: 0.3585, train Acc: 0.7645, Train F1 Macro: 0.5053, Train F1 Micro: 0.7360, Val Loss: 0.4024, Val Acc: 0.7321, Val F1 Macro: 0.5040, Val F1 Micro: 0.7358
+Epoch [6/10], Time: 0.40s, train Loss: 0.3389, train Acc: 0.7766, Train F1 Macro: 0.5253, Train F1 Micro: 0.7427, Val Loss: 0.3872, Val Acc: 0.7321, Val F1 Macro: 0.5147, Val F1 Micro: 0.7352
+Epoch [7/10], Time: 0.48s, train Loss: 0.3104, train Acc: 0.7983, Train F1 Macro: 0.5472, Train F1 Micro: 0.7507, Val Loss: 0.4192, Val Acc: 0.7321, Val F1 Macro: 0.5095, Val F1 Micro: 0.7348
+Epoch [8/10], Time: 0.41s, train Loss: 0.2856, train Acc: 0.8203, Train F1 Macro: 0.5695, Train F1 Micro: 0.7594, Val Loss: 0.4151, Val Acc: 0.7390, Val F1 Macro: 0.5127, Val F1 Micro: 0.7353
+Epoch [9/10], Time: 0.47s, train Loss: 0.2525, train Acc: 0.8442, Train F1 Macro: 0.5921, Train F1 Micro: 0.7688, Val Loss: 0.4229, Val Acc: 0.7331, Val F1 Macro: 0.5169, Val F1 Micro: 0.7350
+Epoch [10/10], Time: 0.44s, train Loss: 0.2234, train Acc: 0.8696, Train F1 Macro: 0.6152, Train F1 Micro: 0.7789, Val Loss: 0.4455, Val Acc: 0.7291, Val F1 Macro: 0.5223, Val F1 Micro: 0.7344
+Test Loss: 0.3501, Test Acc: 0.7812, Test F1 Macro: 0.5583, Test F1 Micro: 0.7812

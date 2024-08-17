@@ -1,0 +1,21 @@
+PyTorch Version : 2.3.0
+cuda
+C:\ProgramData\anaconda3\Lib\site-packages\huggingface_hub\file_download.py:1132: FutureWarning: `resume_download` is deprecated and will be removed in version 1.0.0. Downloads always resume when possible. If you want to force a new download, use `force_download=True`.
+  warnings.warn(
+Some weights of FNetForSequenceClassification were not initialized from the model checkpoint at google/fnet-base and are newly initialized: ['classifier.bias', 'classifier.weight']
+You should probably TRAIN this model on a down-stream task to be able to use it for predictions and inference.
+***** Best Result Updated at Epoch 1, Val Loss: 0.7514 *****
+Epoch [1/10], Time: 24.35s, Train Loss: 0.8041, Train Acc: 0.6916, Train F1 Average: 0.5802, Train F1 Macro: 0.3018, Train F1 Micro: 0.6916, Val Loss: 0.7514, Val Acc: 0.6938, Val F1 Macro: 0.4070, Val F1 Micro: 0.6938, Val F1 Average: 0.6307
+***** Best Result Updated at Epoch 2, Val Loss: 0.7095 *****
+Epoch [2/10], Time: 24.09s, Train Loss: 0.7122, Train Acc: 0.7157, Train F1 Average: 0.6620, Train F1 Macro: 0.4507, Train F1 Micro: 0.7157, Val Loss: 0.7095, Val Acc: 0.7017, Val F1 Macro: 0.4324, Val F1 Micro: 0.7017, Val F1 Average: 0.6467
+***** Best Result Updated at Epoch 3, Val Loss: 0.6961 *****
+Epoch [3/10], Time: 23.79s, Train Loss: 0.6572, Train Acc: 0.7408, Train F1 Average: 0.7062, Train F1 Macro: 0.5284, Train F1 Micro: 0.7408, Val Loss: 0.6961, Val Acc: 0.7233, Val F1 Macro: 0.5081, Val F1 Micro: 0.7233, Val F1 Average: 0.6864  
+Epoch [4/10], Time: 23.55s, Train Loss: 0.5895, Train Acc: 0.7641, Train F1 Average: 0.7433, Train F1 Macro: 0.5926, Train F1 Micro: 0.7641, Val Loss: 0.7186, Val Acc: 0.7076, Val F1 Macro: 0.5018, Val F1 Micro: 0.7076, Val F1 Average: 0.6814
+Epoch [5/10], Time: 23.56s, Train Loss: 0.5065, Train Acc: 0.8021, Train F1 Average: 0.7922, Train F1 Macro: 0.6703, Train F1 Micro: 0.8021, Val Loss: 0.8223, Val Acc: 0.6722, Val F1 Macro: 0.5320, Val F1 Micro: 0.6722, Val F1 Average: 0.6779
+Epoch [6/10], Time: 23.57s, Train Loss: 0.3905, Train Acc: 0.8603, Train F1 Average: 0.8565, Train F1 Macro: 0.7728, Train F1 Micro: 0.8603, Val Loss: 0.9053, Val Acc: 0.6555, Val F1 Macro: 0.5208, Val F1 Micro: 0.6555, Val F1 Average: 0.6639
+Epoch [7/10], Time: 23.47s, Train Loss: 0.2971, Train Acc: 0.8977, Train F1 Average: 0.8963, Train F1 Macro: 0.8377, Train F1 Micro: 0.8977, Val Loss: 1.0059, Val Acc: 0.6683, Val F1 Macro: 0.5150, Val F1 Micro: 0.6683, Val F1 Average: 0.6690
+Epoch [8/10], Time: 23.56s, Train Loss: 0.2115, Train Acc: 0.9250, Train F1 Average: 0.9247, Train F1 Macro: 0.8832, Train F1 Micro: 0.9250, Val Loss: 1.0674, Val Acc: 0.6722, Val F1 Macro: 0.5112, Val F1 Micro: 0.6722, Val F1 Average: 0.6650
+Epoch [9/10], Time: 23.54s, Train Loss: 0.1441, Train Acc: 0.9525, Train F1 Average: 0.9524, Train F1 Macro: 0.9266, Train F1 Micro: 0.9525, Val Loss: 1.1814, Val Acc: 0.6526, Val F1 Macro: 0.5214, Val F1 Micro: 0.6526, Val F1 Average: 0.6623
+Epoch [10/10], Time: 23.52s, Train Loss: 0.1179, Train Acc: 0.9617, Train F1 Average: 0.9617, Train F1 Macro: 0.9413, Train F1 Micro: 0.9617, Val Loss: 1.2201, Val Acc: 0.6624, Val F1 Macro: 0.5002, Val F1 Micro: 0.6624, Val F1 Average: 0.6624
+Total Training Time: 237.01s
+Test Loss: 0.6599, Test Acc: 0.7429, Test F1 Macro: 0.4960, Test F1 Micro: 0.7429
